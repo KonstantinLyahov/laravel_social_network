@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,22 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware'=>['web']], function(){     
+Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
         return view('welcome');
-    });
+    })->name('home');
 
     Route::get('/dashboard', [
-        'uses'=>'UserController@getDashboard',
-        'as' => 'dashboard'
-    ]);
+        'uses' => 'DashboardController@getDashboard',
+        'as' => 'dashboard',
+    ])->middleware('auth');
 
     Route::post('/signup', [
         'uses' => 'UserController@postSignUp',
         'as' => 'signup'
     ]);
 
-    Route::post('/signin',[
+    Route::post('/signin', [
         'uses' => 'UserController@postSignIn',
         'as' => 'signin'
     ]);
