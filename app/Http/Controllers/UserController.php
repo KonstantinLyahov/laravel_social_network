@@ -43,7 +43,13 @@ class UserController extends Controller
 		if (Auth::attempt(['email' => $email, 'password' => $password])) {
 			return redirect()->route('dashboard');
 		} else {
-			return redirect()->back();
+			return redirect()->back()->withErrors(['auth' => 'Wrong username or password']);
 		}
+	}
+
+	public function getLogout()
+	{
+		Auth::logout();
+		return redirect()->route('home');
 	}
 }

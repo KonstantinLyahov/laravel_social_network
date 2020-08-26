@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,11 +21,6 @@ Route::group(['middleware' => ['web']], function () {
         return view('welcome');
     })->name('home');
 
-    Route::get('/dashboard', [
-        'uses' => 'DashboardController@getDashboard',
-        'as' => 'dashboard',
-    ])->middleware('auth');
-
     Route::post('/signup', [
         'uses' => 'UserController@postSignUp',
         'as' => 'signup'
@@ -33,4 +30,28 @@ Route::group(['middleware' => ['web']], function () {
         'uses' => 'UserController@postSignIn',
         'as' => 'signin'
     ]);
+
+    Route::get('/logout', [
+        'uses' => 'UserController@getLogout', 
+        'as' => 'logout'
+    ]);
+
+    Route::get('/dashboard', [
+        'uses' => 'PostController@getDashboard',
+        'as' => 'dashboard',
+    ]);
+
+    Route::post('/createpost', [
+        'uses' => 'PostController@postCreatepost',
+        'as' => 'post.create'
+    ]);
+
+    Route::get('/delete-post/{post_id}', [
+        'uses' => 'PostController@getDeletePost',
+        'as' => 'post.delete'
+    ]);
+
+    Route::post('/edit', function(Request $request){
+        return response()->json(['message' => $request['postId']]);
+    })->name('edit');
 });
