@@ -36,6 +36,21 @@ Route::group(['middleware' => ['web']], function () {
         'as' => 'logout'
     ]);
 
+    Route::get('/account', [
+        'uses' => 'UserController@getAccount',
+        'as' => 'account' 
+    ]);
+
+    Route::post('/update-account', [
+        'uses' => 'UserController@postSaveAccount',
+        'as' => 'account.save'
+    ]);
+
+    Route::get('/userimage/{filename}', [
+        'uses' => 'UserController@getUserImage',
+        'as' => 'account.image'
+    ]);
+
     Route::get('/dashboard', [
         'uses' => 'PostController@getDashboard',
         'as' => 'dashboard',
@@ -51,7 +66,8 @@ Route::group(['middleware' => ['web']], function () {
         'as' => 'post.delete'
     ]);
 
-    Route::post('/edit', function(Request $request){
-        return response()->json(['message' => $request['postId']]);
-    })->name('edit');
+    Route::post('/edit', [
+        'uses' => 'PostController@postEditPost',
+        'as' => 'post.edit'
+    ]);
 });

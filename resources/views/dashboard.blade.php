@@ -74,6 +74,6 @@ Dashboard
 </div>
 <script>
 	var token = '{{ Session::	token() }}';
-		var url = '{{ route('edit') }}'
+		var url = '{{ route('post.edit') }}'
 </script>
 @endsection
