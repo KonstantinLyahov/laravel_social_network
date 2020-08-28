@@ -70,4 +70,9 @@ Route::group(['middleware' => ['web']], function () {
         'uses' => 'PostController@postEditPost',
         'as' => 'post.edit'
     ]);
+
+    Route::post('/like-post', [
+        'uses' => 'PostController@postLikePost',
+        'as' => 'post.like'
+    ]);
 });

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Like;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
@@ -46,7 +48,7 @@ class PostController extends Controller
 	}
 	public function postEditPost(Request $request)
 	{
-		
+
 		$this->validate($request, [
 			'body' => 'required|max:100'
 		]);
@@ -57,5 +59,29 @@ class PostController extends Controller
 		$post->body = $request['body'];
 		$post->update();
 		return response()->json(['new_body' => $post->body], 200);
+	}
+	public function postLikePost(Request $request)
+	{
+		$isLike = filter_var($request->isLike, FILTER_VALIDATE_BOOLEAN);
+		$post_id = $request->postId;
+		$user = Auth::user();
+		$post = Post::find($post_id);
+		$like = $user->likes()->where('post_id', $post_id) ->first();
+		if ($like !== null) {
+			if ($like->like == $isLike) {
+				$like->delete();
+				return response()->json(['deleted' => $like]);
+			}
+			$like->like = $isLike;
+			$like->update();
+			return response()->json(['updated' => $like]);
+		} else {
+			$like = new Like();
+			$like->post_id = $post->id;
+			$like->user_id = $user->id;
+			$like->like = $isLike;
+			$like->save();
+			return response()->json(['inserted' => $like]);
+		}
 	}
 }
