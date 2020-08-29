@@ -35,7 +35,7 @@ Dashboard
 		@foreach ($posts as $post)
 		<article class="post" data-postid="{{ $post->id }}">
 			<p>{{ $post->body }}</p>
-			<div class="info">Posted By <a href="">{{ $post->user->first_name }}</a> on <span>{{ $post->created_at }}</span>
+			<div class="info">Posted By <span>{{ $post->user->first_name }}</span> on <span>{{ $post->created_at }}</span>
 			</div>
 			<span>
 				{{$post->likes()->where('like', 1)->count()-$post->likes()->where('like', 0)->count()}}
