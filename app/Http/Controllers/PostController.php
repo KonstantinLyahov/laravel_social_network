@@ -7,6 +7,7 @@ use App\Like;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 
 class PostController extends Controller
@@ -66,7 +67,7 @@ class PostController extends Controller
 		$post_id = $request->postId;
 		$user = Auth::user();
 		$post = Post::find($post_id);
-		$like = $user->likes()->where('post_id', $post_id) ->first();
+		$like = $user->likes()->where('post_id', $post_id)->first();
 		if ($like !== null) {
 			if ($like->like == $isLike) {
 				$like->delete();

@@ -40,6 +40,23 @@ $('.like').on('click', function (event) {
 		}
 	})
 		.done(function (msg) {
+			if (isLike) {
+				if (Object.keys(msg)[0] == 'deleted') {
+					event.target.parentNode.previousElementSibling.innerText = parseInt(event.target.parentNode.previousElementSibling.innerText) - 1;
+				} else if (Object.keys(msg)[0] == 'updated') {
+					event.target.parentNode.previousElementSibling.innerText = parseInt(event.target.parentNode.previousElementSibling.innerText) + 2;
+				} else {
+					event.target.parentNode.previousElementSibling.innerText = parseInt(event.target.parentNode.previousElementSibling.innerText) + 1;
+				}
+			} else {
+				if (Object.keys(msg)[0] == 'deleted') {
+					event.target.parentNode.previousElementSibling.innerText = parseInt(event.target.parentNode.previousElementSibling.innerText) + 1;
+				} else if (Object.keys(msg)[0] == 'updated') {
+					event.target.parentNode.previousElementSibling.innerText = parseInt(event.target.parentNode.previousElementSibling.innerText) - 2;
+				} else {
+					event.target.parentNode.previousElementSibling.innerText = parseInt(event.target.parentNode.previousElementSibling.innerText) - 1;
+				}
+			}
 			event.target.innerText = isLike ? event.target.innerText == 'Like' ? 'You like this post' : 'Like' : event.target.innerText == 'Dislike' ? 'You don\'t like this post' : 'Dislike';
 			if (isLike) {
 				event.target.nextElementSibling.innerText = 'Dislike';
