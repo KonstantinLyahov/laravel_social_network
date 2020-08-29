@@ -38,7 +38,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/account', [
         'uses' => 'UserController@getAccount',
-        'as' => 'account' 
+        'as' => 'account',
+        'middleware' => 'auth'
     ]);
 
     Route::post('/update-account', [
@@ -74,5 +75,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/like-post', [
         'uses' => 'PostController@postLikePost',
         'as' => 'post.like'
+    ]);
+
+    Route::get('/profile/{user_id}', [
+        'uses' => 'ProfileController@getProfile',
+        'as' => 'profile'
     ]);
 });
