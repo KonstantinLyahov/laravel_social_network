@@ -6,15 +6,17 @@
 	<span>
 		{{$post->likes()->where('like', 1)->count()-$post->likes()->where('like', 0)->count()}}
 	</span>
-	<div class="interaction">
-		<a href="#"
-			class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a>
-		|
-		<a href="#"
-			class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike'  }}</a>
-		@if (Auth::user() == $post->user)
-		| <a href="#" class="edit">Edit</a>
-		| <a href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
-		@endif
+		<div class="interaction">
+			<a href="#"
+				class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a>
+			|
+			<a href="#"
+				class="like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike'  }}</a>
+			@if (Auth::user() == $post->user)
+			| <a href="#" class="edit">Edit</a>
+			| <a href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
+			@endif
+			|
+			<a href="{{ route('post', ['post_id' => $post->id]) }}" class="ml-auto">View</a>			
 	</div>
 </article>

@@ -24,7 +24,7 @@ class PostController extends Controller
 	public function postCreatePost(Request $request)
 	{
 		$this->validate($request, [
-			'body' => 'required|max:100'
+			'body' => 'required|max:300'
 		]);
 
 		$post = new Post();
@@ -51,7 +51,7 @@ class PostController extends Controller
 	{
 
 		$this->validate($request, [
-			'body' => 'required|max:100'
+			'body' => 'required|max:300'
 		]);
 		$post = Post::find($request['postId']);
 		if (Auth::user() != $post->user) {
@@ -84,5 +84,9 @@ class PostController extends Controller
 			$like->save();
 			return response()->json(['inserted' => $like]);
 		}
+	}
+	public function getPost($post_id) {
+		$post = Post::find($post_id);
+		return view('post', ['post' => $post]);
 	}
 }

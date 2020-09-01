@@ -81,4 +81,9 @@ Route::group(['middleware' => ['web']], function () {
         'uses' => 'ProfileController@getProfile',
         'as' => 'profile'
     ]);
+
+    Route::get('/post/{post_id}', [
+        'uses' => 'PostController@getPost',
+        'as' => 'post'
+    ]);
 });
