@@ -16,7 +16,9 @@
 			| <a href="#" class="edit">Edit</a>
 			| <a href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
 			@endif
-			|
-			<a href="{{ route('post', ['post_id' => $post->id]) }}" class="ml-auto">View</a>			
+			@if(Route::currentRouteName()!=='post')
+				|
+				<a href="{{ route('post', ['post_id' => $post->id]) }}" class="ml-auto">View</a>			
+			@endif
 	</div>
 </article>

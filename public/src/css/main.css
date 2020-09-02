@@ -19,3 +19,18 @@
 	color: #aaa;
 	font-style: italic;
 }
+
+.comments {
+	border-top: 1px solid green;
+}
+
+.comments header {
+	margin-bottom: 20px;
+	margin-top: 10px;
+}
+
+.comments .comment {
+	padding-left: 10px;
+	border-left: 2px solid red;
+	margin-bottom: 25px;
+}

@@ -86,4 +86,9 @@ Route::group(['middleware' => ['web']], function () {
         'uses' => 'PostController@getPost',
         'as' => 'post'
     ]);
+
+    Route::post('create-comment', [
+        'uses' => 'PostController@postCreateComment',
+        'as' => 'comment.create'
+    ]);
 });
