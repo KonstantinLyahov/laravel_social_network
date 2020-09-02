@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Post;
 use App\Like;
 use App\User;
@@ -85,8 +86,22 @@ class PostController extends Controller
 			return response()->json(['inserted' => $like]);
 		}
 	}
-	public function getPost($post_id) {
+	public function getPost($post_id)
+	{
 		$post = Post::find($post_id);
-		return view('post', ['post' => $post]);
+		$comments = $post->comments()->orderBy('created_at', 'desc')->get();
+		return view('post', ['post' => $post, 'comments' => $comments]);
+	}
+	public function postCreateComment(Request $request)
+	{
+		$this->validate($request, [
+			'text' => 'required|max:250'
+		]);
+		$comment = new Comment();
+		$comment->text = $request->text;
+		$comment->user_id = Auth::user()->id;
+		$comment->post_id = $request->post_id;
+		$comment->save();
+		return redirect()->back();
 	}
 }

@@ -1,4 +1,4 @@
-.new-post {
+.new-post,{
 	padding: 10px;
 	border-bottom: 1px solid black;
 }
@@ -9,13 +9,16 @@
 	margin-top: 10px;
 }
 
-.posts .post {
+.posts .post,
+.comments .comment {
 	padding-left: 10px;
 	border-left: 3px solid green;
 	margin-bottom: 25px;
 }
 
-.posts .post .info {
+.posts .post .info,
+.comments .comment .info {
 	color: #aaa;
 	font-style: italic;
 }
+
